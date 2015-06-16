@@ -1,4 +1,4 @@
 **Algorithm**: Random Forest
-**Best Accuracy**:
 
-## 0.96
+**Best Accuracy**:
+# 0.96
