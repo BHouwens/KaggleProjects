@@ -1,6 +1,6 @@
 import csv
 from sklearn.ensemble import RandomForestClassifier
-from setup_data import Data
+from setup.data import Data
 
 data = Data()
 counter = 1
