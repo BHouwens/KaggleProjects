@@ -17,7 +17,7 @@ class Election(ClassifierI):
 
 		return mode(votes)
 
-	def confidence(self, training_set):
+	def unanimity(self, training_set):
 		votes = []
 		for c in self.classifiers:
 			v = c.classify(training_set)
