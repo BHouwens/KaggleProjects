@@ -9,7 +9,7 @@ class Election(ClassifierI):
 	def __init__(self, *args):
 		self.classifiers = args
 
-	def classify(self, training_set):
+	def vote(self, training_set):
 		votes = []
 		for c in self.classifiers:
 			v = c.classify(training_set)
@@ -17,7 +17,7 @@ class Election(ClassifierI):
 
 		return mode(votes)
 
-	def confidence(self, training_set):
+	def unanimity(self, training_set):
 		votes = []
 		for c in self.classifiers:
 			v = c.classify(training_set)
