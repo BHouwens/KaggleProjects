@@ -1,6 +1,7 @@
 import csv
 import numpy as np
 from matplotlib import pyplot as plot
+from nn import neural_net
 
 class Data:
 
@@ -9,11 +10,7 @@ class Data:
 		self.labels_train = []
 		self.features_test = []
 		self.labels_test = []
-
-		self.csv_train = csv.reader(open('train.csv'))
 		self.csv_test = csv.reader(open('test.csv'))
-
-		self.final_pred()
 
 	def split_train_test(self, total_features, total_labels):
 		'''
@@ -37,80 +34,46 @@ class Data:
 
 
 
-	def plot(self):
-		'''
-		Plot survival based on any two features. Blue indicates survival, red indicates death.
-		'''
-		survived_x, survived_y = [], []
-		died_x, died_y = [], []
-
-		header = self.csv_train.next()
-
-		# Age, sex comparison
-		for row in self.csv_train:
-			if not row[5] == '':
-				if row[1] == '1':
-					if row[4] == 'female':
-						survived_y.append(1)
-					else:
-						survived_y.append(0)
-
-					survived_x.append(float(row[5]))
-
-				else:
-					if row[4] == 'female':
-						died_y.append(1)
-					else:
-						died_y.append(0)
-
-						
-					died_x.append(float(row[5]))
-
-
-
-		plot.scatter(survived_x, survived_y)
-		plot.scatter(died_x, died_y, color="r")
-		plot.title('Titanic Survival')
-		plot.xlabel('Age')
-		plot.ylabel('Sex - Female = 1, Male = 0')
-
-		plot.show()
-
-
-
 	def initial_pred(self):
 		'''
 		Initial prediction to get a sense of accuracy before submitting
 		'''
+
+		self.csv_train = csv.reader(open('train.csv'))
 
 		# Split and set data for training and testing
 		total_features = []
 		total_labels = []
 
 		for row in self.csv_train:
+			pclass = row[2]
 			age = row[5]
 			sex = row[6]
 			parch = row[7]
 			fare = row[9]
 
 			# handle all null values
-			# we can't exclude these entries for final submission
-
-			if age == '':
-				age = 0.1
-			if parch == '':
-				parch = 0.1
-			if fare == '':
-				fare = 0.1
-
-			if sex == '':
-				sex = 0.1
-			elif sex == 'female':
-				sex = 1
+			if sex:
+				if sex == 'female':
+					sex = 1
+				else:
+					sex = 0
 			else:
-				sex = 0
+				sex = row[1]
 
-			total_features.append([row[2], sex, age, parch, fare])
+			if not age:
+				age = 0
+
+			if not parch:
+				parch = 0
+
+			if not fare:
+				fare = 0
+
+			if not pclass:
+				pclass = 0
+
+			total_features.append([pclass, sex, age, parch, fare])
 			total_labels.append(row[1])
 
 
@@ -121,15 +84,15 @@ class Data:
 		total_features = [list(map(float, i)) for i in total_features]
 		total_labels = map(float, total_labels)
 
-		self.split_train_test(total_features, total_labels)
+		return neural_net(total_features, [total_labels])
 
 
 
+	'''
 	def final_pred(self):
-		'''
 		Final prediction with submission testing data. 
 		The prediction relies on only a handful of important features.
-		'''
+	
 		for row in self.csv_train:
 			age = row[5]
 			sex = row[6]
@@ -191,3 +154,8 @@ class Data:
 
 		del self.features_test[0]
 		self.features_test = [list(map(float, i)) for i in self.features_test]
+	'''
+
+if __name__ == '__main__':
+	data = Data()
+	print data.initial_pred()
