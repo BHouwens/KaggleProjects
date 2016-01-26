@@ -18,8 +18,9 @@ ch_sodium = return_sodium('china')
 nd_sodium = return_sodium('netherlands') + return_sodium('holland')
 au_sodium = return_sodium('australia') + return_sodium('en:au')
 jp_sodium = return_sodium('japan') + return_sodium('en:jp')
+de_sodium = return_sodium('germany')
 
-countries = ['France', 'South Africa', 'UK', 'USA', 'Spain', 'China', 'Netherlands', 'Australia', 'Japan']
+countries = ['France', 'South Africa', 'UK', 'USA', 'Spain', 'China', 'Netherlands', 'Australia', 'Japan', 'Germany']
 sodium_l = [mean(fr_sodium), 
             mean(za_sodium), 
             mean(uk_sodium), 
@@ -28,7 +29,8 @@ sodium_l = [mean(fr_sodium),
             mean(ch_sodium),
             mean(nd_sodium),
             mean(au_sodium),
-            mean(jp_sodium)]
+            mean(jp_sodium),
+            mean(de_sodium)]
 
 
 if __name__ == '__main__':

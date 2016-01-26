@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 
 world_sugars = world_food_facts[world_food_facts.sugars_100g.notnull()]
 
+# Gives back list of sugar contents for country
 def return_sugars(country):
     return world_sugars[world_sugars.countries == country].sugars_100g.tolist()
     
@@ -17,8 +18,9 @@ sp_sugars = return_sugars('spain') + return_sugars('españa') + return_sugars('e
 nd_sugars = return_sugars('netherlands') + return_sugars('holland')
 au_sugars = return_sugars('australia') + return_sugars('en:au')
 cn_sugars = return_sugars('canada') + return_sugars('en:cn')
+de_sugars = return_sugars('germany')
 
-countries = ['France', 'South Africa', 'UK', 'USA', 'Spain', 'Netherlands', 'Australia', 'Canada']
+countries = ['France', 'South Africa', 'UK', 'USA', 'Spain', 'Netherlands', 'Australia', 'Canada', 'Germany']
 sugars_l = [mean(fr_sugars), 
             mean(za_sugars), 
             mean(uk_sugars), 
@@ -26,7 +28,8 @@ sugars_l = [mean(fr_sugars),
             mean(sp_sugars), 
             mean(nd_sugars),
             mean(au_sugars),
-            mean(cn_sugars)]
+            mean(cn_sugars),
+            mean(de_sugars)]
             
 if __name__ == '__main__':
     y_pos = np.arange(len(countries))
